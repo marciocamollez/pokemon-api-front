@@ -6,26 +6,18 @@ import Menu from '../components/Menu'
 
 
 export async function getStaticProps() {
-  const pokemons = await fetch('https://pokeapi.co/api/v2/pokedex/2/')
-    .then((respostaDoServer) => {
-      if (respostaDoServer.ok) {
-        return respostaDoServer.json();
-      }
-
-      throw new Error('Deu problema');
-    })
-    .then((respostaEmObjeto) => respostaEmObjeto.pokemon_entries);
-
+  const pokemons = await fetch('http://localhost:3000/pokemons')
+  const posts = await pokemons.json()
+      
   return {
     props: {
-      pokemons,
+      posts,
     },
   };
 }
 
-export default function Home(props) {
-  const { pokemons } = props;
-
+export default function Home({ posts }) {
+ 
   return (
     <div>
         <Head>
@@ -41,11 +33,12 @@ export default function Home(props) {
             <h1>Lista de Pokemons</h1>
             <div className="lista-titulo">
                 <div className="row">
-                    {pokemons.map((pokemon) => (
-                        <div key={pokemon.entry_number} className="col-12 col-sm-4 col-md-3 col-lg-3">
-                            <Link href={`/pokemon/${pokemon.entry_number}`}>
+                  {posts.map((post) => (
+                        <div key={post.id} className="col-12 col-sm-4 col-md-3 col-lg-3">
+                            <Link href={`/pokemon/${post.id}`}>
                             <a>
-                                {pokemon.pokemon_species.name}<br />
+                              <img src={post.image} />
+                              {post.name}<br />
                                
                             </a>
                             </Link>

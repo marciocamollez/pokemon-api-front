@@ -7,7 +7,6 @@ export default function Menu(){
             <div className="container">
                 <ul>
                     <li><Link href="/"><a>Home</a></Link></li>
-                    <li><Link href="/tipos"><a>Tipos</a></Link></li>
                 </ul>
                 
                 
